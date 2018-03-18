@@ -62,4 +62,30 @@ public class Author {
     public void setId(long id) {
         this.id = id;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        return books != null ? books.equals(author.books) : author.books == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return books != null ? books.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", books=" + books +
+                '}';
+    }
 }

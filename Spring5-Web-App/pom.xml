@@ -42,6 +42,8 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!--Access to h2 console database-->
+		<!--http://localhost:8080/h2-console/-->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
