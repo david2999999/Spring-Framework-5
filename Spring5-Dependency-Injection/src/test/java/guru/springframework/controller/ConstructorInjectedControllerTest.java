@@ -10,7 +10,6 @@ public class ConstructorInjectedControllerTest {
 
     ConstructorInjectedController constructorInjectedController;
 
-
     @Before
     public void setUp() throws Exception {
         this.constructorInjectedController = new ConstructorInjectedController(new GreetingServiceImpl());
