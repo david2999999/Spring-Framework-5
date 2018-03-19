@@ -17,10 +17,9 @@ public class DiDemoApplication {
 
 		MyController controller = (MyController) ctx.getBean("myController");
 
-		controller.hello();
-
 		// the classes are scanned with the @Component
 		// the fields of each class are @Autowired
+		System.out.println(controller.hello());
 		System.out.println(ctx.getBean(PropertyInjectorController.class).sayHello());
 		System.out.println(ctx.getBean(ConstructorInjectedController.class).sayHello());
 		System.out.println(ctx.getBean(SetterInjectorController.class).sayHello());
