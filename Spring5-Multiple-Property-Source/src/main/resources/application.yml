@@ -1,0 +1,11 @@
+jms:
+  user: JMS Username
+  password: somepass
+  url: someUrl
+
+---
+spring:
+  profiles: de
+
+jms:
+  user: JMS Username in german
