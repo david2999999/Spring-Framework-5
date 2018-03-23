@@ -1,0 +1,50 @@
+# this is a comment
+
+name: Louis
+names:  #comment
+  - Susan
+  - Alona
+  - Ringo
+
+pound_sign: "#"
+
+book:
+  author: Joe
+  publisher: Random Hour
+
+truth: yes
+
+another_truth: True
+
+more_true: true
+
+false: no #No, false, FALSE
+
+string_val: "This is it's quote"
+
+colon_strings: "my courses: one two three"
+
+include_new_line: |
+  asasd as das dasd
+  asda sd qwd qwd qw
+  qwdqwd qwdq wd qwd
+  qwdqwdq q weqwe qw
+
+ignore_new_line: >
+  this is
+  just one long string
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
