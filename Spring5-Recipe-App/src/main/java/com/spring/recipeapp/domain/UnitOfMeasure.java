@@ -2,9 +2,6 @@ package com.spring.recipeapp.domain;
 
 import javax.persistence.*;
 
-/**
- * Created by zheng on 3/26/2018.
- */
 @Entity
 public class UnitOfMeasure {
 
