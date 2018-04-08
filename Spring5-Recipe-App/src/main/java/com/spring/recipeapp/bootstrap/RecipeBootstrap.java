@@ -15,20 +15,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Slf4j is used for logging
 @Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    // fields used for CRUD operations
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
+    // these fields will be automatically autowired
     public RecipeBootstrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
     }
 
+    // save all of the recipes when application loads
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -40,7 +44,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         List<Recipe> recipes = new ArrayList<>(2);
 
-        //get UOMs
+        //retrieve unit of measures from the database
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
 
         if(!eachUomOptional.isPresent()){
@@ -77,7 +81,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
             throw new RuntimeException("Expected UOM Not Found");
         }
 
-        //get optionals
+        // retrieve the actual values of each option
         UnitOfMeasure eachUom = eachUomOptional.get();
         UnitOfMeasure tableSpoonUom = tableSpoonUomOptional.get();
         UnitOfMeasure teapoonUom = teaSpoonUomOptional.get();
@@ -85,7 +89,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         UnitOfMeasure pintUom = pintUomOptional.get();
         UnitOfMeasure cupsUom = cupsUomOptional.get();
 
-        //get Categories
+        //get the options on category
         Optional<Category> americanCategoryOptional = categoryRepository.findByDescription("American");
 
         if(!americanCategoryOptional.isPresent()){
@@ -101,7 +105,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         Category americanCategory = americanCategoryOptional.get();
         Category mexicanCategory = mexicanCategoryOptional.get();
 
-        //Yummy Guac
+        //creating a new recipe
         Recipe guacRecipe = new Recipe();
         guacRecipe.setDescription("Perfect Guacamole");
         guacRecipe.setPrepTime(10);

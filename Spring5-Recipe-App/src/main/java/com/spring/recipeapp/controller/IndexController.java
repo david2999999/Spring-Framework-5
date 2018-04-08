@@ -1,9 +1,5 @@
 package com.spring.recipeapp.controller;
 
-import com.spring.recipeapp.domain.Category;
-import com.spring.recipeapp.domain.UnitOfMeasure;
-import com.spring.recipeapp.repositories.CategoryRepository;
-import com.spring.recipeapp.repositories.UnitOfMeasureRepository;
 import com.spring.recipeapp.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
