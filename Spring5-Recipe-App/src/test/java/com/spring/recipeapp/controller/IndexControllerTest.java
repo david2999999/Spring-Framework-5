@@ -70,7 +70,7 @@ public class IndexControllerTest {
 
         recipes.add(recipe);
 
-        when(recipeService.getRecipe()).thenReturn(recipes);
+        when(recipeService.getRecipes()).thenReturn(recipes);
 
         ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
@@ -82,7 +82,7 @@ public class IndexControllerTest {
         assertEquals("index", viewName);
 
         // checking the number of times methods are called
-        verify(recipeService, times(1)).getRecipe();
+        verify(recipeService, times(1)).getRecipes();
         // argumentCaptor.capture() checks what argument or set is passed in
         verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
 

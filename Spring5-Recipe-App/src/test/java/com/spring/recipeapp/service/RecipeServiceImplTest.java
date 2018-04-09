@@ -1,5 +1,7 @@
 package com.spring.recipeapp.service;
 
+import com.spring.recipeapp.converters.RecipeCommandToRecipe;
+import com.spring.recipeapp.converters.RecipeToRecipeCommand;
 import com.spring.recipeapp.domain.Recipe;
 import com.spring.recipeapp.repositories.RecipeRepository;
 import org.junit.Before;
@@ -17,16 +19,23 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
+
     RecipeServiceImpl recipeService;
 
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
@@ -44,24 +53,20 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, never()).findAll();
     }
 
-
-
     @Test
-    public void getRecipe() throws Exception {
+    public void getRecipesTest() throws Exception {
 
         Recipe recipe = new Recipe();
-        HashSet recipesData = new HashSet();
-        recipesData.add(recipe);
+        HashSet receipesData = new HashSet();
+        receipesData.add(recipe);
 
-        // return the hashset recipesData when recipeService.getRecipe is called
-        when(recipeService.getRecipe()).thenReturn(recipesData);
+        when(recipeService.getRecipes()).thenReturn(receipesData);
 
-        Set<Recipe> recipes = recipeService.getRecipe();
+        Set<Recipe> recipes = recipeService.getRecipes();
 
         assertEquals(recipes.size(), 1);
-
-        // verifying if the findAll method of recipeRepository is called once
         verify(recipeRepository, times(1)).findAll();
+        verify(recipeRepository, never()).findById(anyLong());
     }
 
 }
