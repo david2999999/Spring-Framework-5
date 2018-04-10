@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+// Controller to route to the index page
+// the index page will have the recipes listed
 @Slf4j
 @Controller
 public class IndexController {

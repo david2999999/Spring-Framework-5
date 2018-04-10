@@ -20,8 +20,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+// Test for the Index Controller
+// Each test will be used for test driven development
 public class IndexControllerTest {
 
+    // create mock fields
     @Mock
     RecipeService recipeService;
 
@@ -32,15 +35,24 @@ public class IndexControllerTest {
 
     @Before
     public void setUp() throws Exception {
+        // this will initialize all of the @Mock fields
         MockitoAnnotations.initMocks(this);
 
+        // create a new index controller with the recipe service
         controller = new IndexController(recipeService);
     }
 
     @Test
     public void testMockMVC() throws Exception {
+
+        //Build a MockMvc instance by registering one or more
+        // @Controller instances and configuring Spring MVC infrastructure programmatically.
+        // Using this method, we do not need to run the controller inside a server
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
+        // perform a get method on the url "/"
+        // if the status is ok
+        // we will expect a name view name of index
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"));
@@ -60,17 +72,27 @@ public class IndexControllerTest {
 
         when(recipeService.getRecipes()).thenReturn(recipes);
 
+        // Use it to capture argument values for further assertions.
         ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
-        //when
+        //when (get the view name from the controller method passing in a mock model)
         String viewName = controller.getIndexPage(model);
 
 
         //then
+        // checks if the view name is equal to index
         assertEquals("index", viewName);
+
+        // verifies if recipeService only runs one time when getting the index page
         verify(recipeService, times(1)).getRecipes();
+
+        // checks if the model's addAttribute method run once and get the recipe that was passed into the method
         verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
+
+        // retrieve the value of the set
         Set<Recipe> setInController = argumentCaptor.getValue();
+
+        // check if the set has 2 recipes
         assertEquals(2, setInController.size());
     }
 
