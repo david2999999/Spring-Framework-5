@@ -2,15 +2,14 @@ package com.spring.controllers;
 
 import com.spring.services.RecipeService;
 import com.spring.commands.RecipeCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 // Controller that will be in charge of all of the CRUD routing methods on the recipe
+@Slf4j
 @Controller
 public class RecipeController {
 
@@ -24,7 +23,7 @@ public class RecipeController {
 
     // show the individual recipe
     // the request mapping follows a RESTful design pattern
-    @RequestMapping("/recipe/{id}/show")
+    @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
 
         // find the recipe by its ID and sent to the HTML
@@ -35,7 +34,7 @@ public class RecipeController {
     }
 
     // route to show the form for a new recipe
-    @RequestMapping("recipe/new")
+    @GetMapping("recipe/new")
     public String newRecipe(Model model){
         // create a new recipe command object to be bind to the form
         model.addAttribute("recipe", new RecipeCommand());
@@ -45,7 +44,7 @@ public class RecipeController {
     }
 
     // route to show the form to update a recipe
-    @RequestMapping("recipe/{id}/update")
+    @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
         // find the command object that will be used to bind to the form
         // the form will be populated with the data of the command object
@@ -65,5 +64,15 @@ public class RecipeController {
 
         // redirect the user to show the page of the recipe that was saved or updated
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
+    }
+
+    // delete the recipe and redirect to index page
+    @GetMapping("recipe/{id}/delete")
+    public String deleteById(@PathVariable String id){
+
+        log.debug("Deleting id: " + id);
+
+        recipeService.deleteById(Long.valueOf(id));
+        return "redirect:/";
     }
 }
