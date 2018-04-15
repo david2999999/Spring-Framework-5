@@ -50,7 +50,6 @@ public class RecipeServiceImpl implements RecipeService {
     // method to find a recipe by ID
     @Override
     public Recipe findById(Long l) {
-
         // Optional is A container object which may or may not contain a non-null value.
         // If a value is present, isPresent() will return true and get() will return the value.
         // retrieve the object by its ID from the repository

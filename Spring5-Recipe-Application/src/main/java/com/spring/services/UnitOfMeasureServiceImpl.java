@@ -23,6 +23,9 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     @Override
     public Set<UnitOfMeasureCommand> listAllUoms() {
 
+        // Stream Support is Low-level utility methods for creating and manipulating streams.
+        // This class is mostly for library writers presenting stream views of data structures;
+        //most static stream methods intended for end users are in the various Stream classes.
         return StreamSupport.stream(unitOfMeasureRepository.findAll()
                 .spliterator(), false)
                 .map(unitOfMeasureToUnitOfMeasureCommand::convert)

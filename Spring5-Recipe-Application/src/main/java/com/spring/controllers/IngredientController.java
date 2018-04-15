@@ -28,6 +28,8 @@ public class IngredientController {
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
+    // retrieve the recipe by its Id
+    // then list ingredients of the recipe on the html
     @GetMapping("/recipe/{recipeId}/ingredients")
     public String listIngredients(@PathVariable String recipeId, Model model){
         log.debug("Getting ingredient list for recipe id: " + recipeId);
@@ -38,6 +40,7 @@ public class IngredientController {
         return "recipe/ingredient/list";
     }
 
+    // show one specific ingredient of a recipe, by using the recipe id and ingredient id
     @GetMapping("recipe/{recipeId}/ingredient/{id}/show")
     public String showRecipeIngredient(@PathVariable String recipeId,
                                        @PathVariable String id, Model model){
@@ -45,6 +48,7 @@ public class IngredientController {
         return "recipe/ingredient/show";
     }
 
+    // show the form for a new ingredient
     @GetMapping("recipe/{recipeId}/ingredient/new")
     public String newIngredient(@PathVariable String recipeId, Model model){
 
@@ -65,10 +69,12 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
+    // show the form to update an ingredient
     @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable String recipeId,
                                          @PathVariable String id, Model model){
-        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+        model.addAttribute("ingredient", ingredientService.
+                                findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
 
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
         return "recipe/ingredient/ingredientform";
