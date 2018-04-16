@@ -43,7 +43,9 @@ public class RecipeControllerTest {
         controller = new RecipeController(recipeService);
 
         // create a new mockMvc to test for routing
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
